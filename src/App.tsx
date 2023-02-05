@@ -1,10 +1,11 @@
-import React from "react";
-import "./App.css";
+import AppRouter from "./AppRouter";
+import AppStyle from "./styles/AppStyle";
 
 function App() {
   return (
     <div className="App">
-      <div>Server Side Rendering Test</div>
+      <AppStyle />
+      <AppRouter />
     </div>
   );
 }
