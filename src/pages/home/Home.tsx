@@ -1,8 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import lena from "assets/Lenna.png";
+import { onAuthStateChanged } from "firebase/auth";
+import { NavLinks } from "models";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { authService } from "services";
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (!user) {
+        navigate(NavLinks.SignIn);
+      }
+    });
+  }, [navigate]);
+
   const imageScreen = css({
     width: "100vw",
     height: "100%"

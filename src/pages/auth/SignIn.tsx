@@ -19,6 +19,8 @@ export default function SignIn() {
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
+        setEmail("");
+        setPassword("");
         navigate(NavLinks.Home);
       }
     });
