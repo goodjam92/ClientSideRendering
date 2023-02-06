@@ -7,6 +7,7 @@ export default function Home() {
     width: "100vw",
     height: "100%"
   });
+
   const imageContainer = css({
     display: "flex",
     width: "100%",
@@ -14,6 +15,7 @@ export default function Home() {
     margin: "2rem",
     flexWrap: "wrap"
   });
+
   const textBox = css({
     display: "flex",
     justifyContent: "center",
@@ -21,6 +23,7 @@ export default function Home() {
     height: "100%",
     marginTop: "2rem"
   });
+
   const text = css({
     fontSize: "4rem"
   });
@@ -41,8 +44,8 @@ export default function Home() {
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < 10; i++) {
         imageBoxList.push(
-          <div css={imageBox}>
-            <img css={image} src={lena} alt="pho" />
+          <div css={imageBox} key={`box${i}`}>
+            <img css={image} src={lena} alt="pho" key={`img${i}`} />
           </div>
         );
       }
