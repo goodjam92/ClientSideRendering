@@ -1,5 +1,4 @@
 export const NavLinks = {
-    Home: "/",
-    SignIn: "/signIn",
-    ImgTest: "/imgTest",
-  };
+  Home: "/",
+  SignIn: "/signIn",
+};
