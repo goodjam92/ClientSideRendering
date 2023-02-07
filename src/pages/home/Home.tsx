@@ -65,9 +65,8 @@ export default function Home() {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    width: "100%",
-    height: "100%",
-    marginTop: "2rem"
+    margin: "2rem",
+    flexWrap: "wrap"
   });
 
   const text = css({
@@ -80,7 +79,7 @@ export default function Home() {
     height: "22rem",
     padding: "0.5rem",
     boxSizing: "border-box"
-  });
+
   const image = css({
     width: "100%",
     height: "100%"
@@ -98,10 +97,6 @@ export default function Home() {
         imageBoxList.push(
           <div css={imageBox} key={`box${i}`}>
             <img css={image} src={images[i]} alt="pho" key={`img${i}`} />
-          </div>
-        );
-      }
-      return imageBoxList;
     };
     return <>{rendering()}</>;
   }
@@ -119,11 +114,6 @@ export default function Home() {
         />
       </div>
       <div css={imageContainer}>{imageBoxRender()}</div>
-      <div css={textBox}>
-        <button type="button">
-          {isFirstView ? "이전 페이지" : "다음 페이지"}
-        </button>
-      </div>
     </div>
   );
 }
