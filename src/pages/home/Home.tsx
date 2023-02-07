@@ -1,15 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import lena from "assets/Lenna.png";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, onSnapshot } from "firebase/firestore";
 import { NavLinks } from "models";
 import { imageFileUpload } from "pages/home/services";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authService } from "services";
+import { authService, dbService } from "services";
 
 export default function Home() {
   const [userUid, setUserUid] = useState<string>("");
+  const [images, setImages] = useState<string[]>([""]);
+  const [isFirstView, setIsFirstView] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const uploadFiles = async (files: any[]) => {
@@ -37,6 +39,13 @@ export default function Home() {
       setUserUid(user.uid);
     });
   }, [navigate]);
+
+  useEffect(() => {
+    const TEST_DOCUMENT_ID = "oCo3iiCdSBI0TNf7Nk43";
+    onSnapshot(doc(dbService, `RenderTest`, TEST_DOCUMENT_ID), (data: any) => {
+      setImages(data.data().images);
+    });
+  }, [images]);
 
   const imageScreen = css({
     width: "100%",
@@ -67,7 +76,7 @@ export default function Home() {
   });
 
   const imageBox = css({
-    width: "26rem",
+    width: "24rem",
     height: "22rem",
     padding: "0.5rem",
     boxSizing: "border-box"
@@ -78,13 +87,17 @@ export default function Home() {
   });
 
   function imageBoxRender() {
+    const { length } = images;
     const rendering = () => {
       const imageBoxList: any[] = [];
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 5; i++) {
+        if (!images[i]) {
+          break;
+        }
         imageBoxList.push(
           <div css={imageBox} key={`box${i}`}>
-            <img css={image} src={lena} alt="pho" key={`img${i}`} />
+            <img css={image} src={images[i]} alt="pho" key={`img${i}`} />
           </div>
         );
       }
@@ -106,6 +119,11 @@ export default function Home() {
         />
       </div>
       <div css={imageContainer}>{imageBoxRender()}</div>
+      <div css={textBox}>
+        <button type="button">
+          {isFirstView ? "이전 페이지" : "다음 페이지"}
+        </button>
+      </div>
     </div>
   );
 }
