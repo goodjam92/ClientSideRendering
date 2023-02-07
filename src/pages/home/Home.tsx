@@ -11,7 +11,6 @@ import { authService, dbService } from "services";
 export default function Home() {
   const [userUid, setUserUid] = useState<string>("");
   const [images, setImages] = useState<string[]>([""]);
-  const [isFirstView, setIsFirstView] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const uploadFiles = async (files: any[]) => {
@@ -79,7 +78,7 @@ export default function Home() {
     height: "22rem",
     padding: "0.5rem",
     boxSizing: "border-box"
-
+  });
   const image = css({
     width: "100%",
     height: "100%"
@@ -97,6 +96,10 @@ export default function Home() {
         imageBoxList.push(
           <div css={imageBox} key={`box${i}`}>
             <img css={image} src={images[i]} alt="pho" key={`img${i}`} />
+          </div>
+        );
+      }
+      return imageBoxList;
     };
     return <>{rendering()}</>;
   }
