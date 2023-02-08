@@ -11,7 +11,7 @@ import { authService, dbService } from "services";
 export default function Home() {
   const [userUid, setUserUid] = useState<string>("");
   const [images, setImages] = useState<string[]>([""]);
-  const [isFirstView, setIsFirstView] = useState<boolean>(false);
+  const [isFirst, setIsFirst] = useState<boolean>(true);
   const navigate = useNavigate();
 
   const uploadFiles = async (files: any[]) => {
@@ -79,7 +79,7 @@ export default function Home() {
     height: "22rem",
     padding: "0.5rem",
     boxSizing: "border-box"
-
+  });
   const image = css({
     width: "100%",
     height: "100%"
@@ -90,13 +90,17 @@ export default function Home() {
     const rendering = () => {
       const imageBoxList: any[] = [];
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 1; i++) {
         if (!images[i]) {
           break;
         }
         imageBoxList.push(
           <div css={imageBox} key={`box${i}`}>
             <img css={image} src={images[i]} alt="pho" key={`img${i}`} />
+          </div>
+        );
+      }
+      return imageBoxList;
     };
     return <>{rendering()}</>;
   }
@@ -114,6 +118,16 @@ export default function Home() {
         />
       </div>
       <div css={imageContainer}>{imageBoxRender()}</div>
+      <div css={textBox}>
+        <button
+          type="button"
+          onClick={() => {
+            setIsFirst(!isFirst);
+          }}
+        >
+          상호작용버튼
+        </button>
+      </div>
     </div>
   );
 }
