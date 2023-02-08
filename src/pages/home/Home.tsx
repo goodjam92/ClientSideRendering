@@ -86,7 +86,6 @@ export default function Home() {
   });
 
   function imageBoxRender() {
-    const { length } = images;
     const rendering = () => {
       const imageBoxList: any[] = [];
       // eslint-disable-next-line no-plusplus
