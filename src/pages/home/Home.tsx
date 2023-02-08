@@ -11,6 +11,7 @@ import { authService, dbService } from "services";
 export default function Home() {
   const [userUid, setUserUid] = useState<string>("");
   const [images, setImages] = useState<string[]>([""]);
+  const [isFirst, setIsFirst] = useState<boolean>(true);
   const navigate = useNavigate();
 
   const uploadFiles = async (files: any[]) => {
@@ -85,11 +86,10 @@ export default function Home() {
   });
 
   function imageBoxRender() {
-    const { length } = images;
     const rendering = () => {
       const imageBoxList: any[] = [];
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 1; i++) {
         if (!images[i]) {
           break;
         }
@@ -117,6 +117,16 @@ export default function Home() {
         />
       </div>
       <div css={imageContainer}>{imageBoxRender()}</div>
+      <div css={textBox}>
+        <button
+          type="button"
+          onClick={() => {
+            setIsFirst(!isFirst);
+          }}
+        >
+          상호작용버튼
+        </button>
+      </div>
     </div>
   );
 }
