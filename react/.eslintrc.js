@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: [
     "airbnb",
@@ -14,19 +14,19 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
+    "prettier"
   ],
   overrides: [],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     ecmaVersion: "latest",
     sourceType: "module",
     project: "./tsconfig.json",
     tsconfigRootDir: __dirname,
-    createDefaultProgram: true,
+    createDefaultProgram: true
   },
   plugins: [
     "react",
@@ -34,19 +34,20 @@ module.exports = {
     "@typescript-eslint",
     "jsx-a11y",
     "import",
-    "prettier",
+    "prettier"
   ],
   rules: {
     "react/react-in-jsx-scope": "off",
     "import/prefer-default-export": "off",
     "react/no-unknown-property": ["error", { ignore: ["css"] }],
     "@typescript-eslint/no-explicit-any": "off",
+    "import/no-unresolved": "off"
   },
   settings: {
     "import/resolver": {
       node: {
-        paths: ["src"],
-      },
-    },
-  },
+        paths: ["src"]
+      }
+    }
+  }
 };

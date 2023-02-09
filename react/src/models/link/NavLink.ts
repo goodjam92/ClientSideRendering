@@ -1,4 +1,4 @@
 export const NavLinks = {
   Home: "/",
-  SignIn: "/signIn",
+  SignIn: "/signIn"
 };
