@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import { NavLinks } from "models";
 import { getImageList, imageFileUpload } from "pages/home/services";
-import { authService, dbService } from "services";
+import { authService } from "services";
 
 export default function Home() {
   const [userUid, setUserUid] = useState<string>("");
@@ -42,7 +41,6 @@ export default function Home() {
 
   useEffect(() => {
     getImageList().then((result: any) => {
-      console.log(result);
       setImages(result);
     });
   }, []);
@@ -89,7 +87,7 @@ export default function Home() {
     const rendering = () => {
       const imageBoxList: any[] = [];
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < 1; i++) {
+      for (let i = 0; i < 8; i++) {
         if (!images[i]) {
           break;
         }
@@ -107,17 +105,17 @@ export default function Home() {
   return (
     <div css={imageScreen}>
       <div css={textBox}>
-        <p css={text}>Server Side Rendering Test - React</p>
+        {/*         <p css={text}>Server Side Rendering Test - React</p>
         <input
           type="file"
           onChange={setFile}
           value=""
           accept="image/png, image/tiff, image/bmp, image/jpg"
           multiple
-        />
+        /> */}
       </div>
       <div css={imageContainer}>{imageBoxRender()}</div>
-      <div css={textBox}>
+      {/*       <div css={textBox}>
         <button
           type="button"
           onClick={() => {
@@ -126,7 +124,7 @@ export default function Home() {
         >
           상호작용버튼
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
