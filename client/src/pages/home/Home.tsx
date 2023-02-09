@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { NavLinks } from "models";
-import { imageFileUpload } from "pages/home/services";
+import { getImageList, imageFileUpload } from "pages/home/services";
 import { authService, dbService } from "services";
 
 export default function Home() {
@@ -41,11 +41,11 @@ export default function Home() {
   }, [navigate]);
 
   useEffect(() => {
-    const TEST_DOCUMENT_ID = "oCo3iiCdSBI0TNf7Nk43";
-    onSnapshot(doc(dbService, `RenderTest`, TEST_DOCUMENT_ID), (data: any) => {
-      setImages(data.data().images);
+    getImageList().then((result: any) => {
+      console.log(result);
+      setImages(result);
     });
-  }, [images]);
+  }, []);
 
   const imageScreen = css({
     width: "100%",
