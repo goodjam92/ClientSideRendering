@@ -1,7 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-// eslint-disable-next-line import/no-unresolved
 import { Home, SignIn } from "pages";
-// eslint-disable-next-line import/no-unresolved
 import { NavLinks } from "models";
 
 export default function AppRouter() {
