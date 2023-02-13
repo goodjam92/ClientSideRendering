@@ -8,7 +8,6 @@ export default function AppStyle() {
         @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap");
 
         ${emotionReset}
-
         html {
           font-size: 62.5%;
         }

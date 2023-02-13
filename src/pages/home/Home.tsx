@@ -1,51 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { onAuthStateChanged } from "firebase/auth";
-import { doc, onSnapshot } from "firebase/firestore";
-import { NavLinks } from "models";
-import { imageFileUpload } from "pages/home/services";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { authService, dbService } from "services";
 
 export default function Home() {
-  const [userUid, setUserUid] = useState<string>("");
-  const [images, setImages] = useState<string[]>([""]);
-  const [isFirst, setIsFirst] = useState<boolean>(true);
-  const navigate = useNavigate();
-
-  const uploadFiles = async (files: any[]) => {
-    files.forEach((file: File) => {
-      const reader = new FileReader();
-      reader.onloadend = (event: any) => {
-        const { result } = event.currentTarget;
-        imageFileUpload(result, userUid);
-      };
-      reader.readAsDataURL(file);
-    });
-  };
-
-  const setFile = (event: any) => {
-    const { files } = event.target;
-    const uploadFile = Array.from(files);
-    uploadFiles(uploadFile);
-  };
-
-  useEffect(() => {
-    onAuthStateChanged(authService, (user: any) => {
-      if (!user) {
-        navigate(NavLinks.SignIn);
-      }
-      setUserUid(user.uid);
-    });
-  }, [navigate]);
-
-  useEffect(() => {
-    const TEST_DOCUMENT_ID = "oCo3iiCdSBI0TNf7Nk43";
-    onSnapshot(doc(dbService, `RenderTest`, TEST_DOCUMENT_ID), (data: any) => {
-      setImages(data.data().images);
-    });
-  }, [images]);
+  const imageList: string[] = [
+    "https://upload.wikimedia.org/wikipedia/commons/8/89/Aerial_view_of_National_Museum_of_American_History.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/2/23/%281%29Moonrise_Darling_Harbour.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/8/88/12-07-13-washington-by-RalfR-10.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/6/64/%27Witch_Head%27_Brews_Baby_Stars_%2810592267924%29.jpg?uselang=ko",
+    "https://upload.wikimedia.org/wikipedia/commons/2/2b/%27Zur_steinernen_Glocke_%27_Altst%C3%A4dter_Ring.jpg?uselang=ko",
+    "https://upload.wikimedia.org/wikipedia/commons/7/71/%281%29Campbells_Stores.jpg?uselang=ko",
+    "https://upload.wikimedia.org/wikipedia/commons/f/f6/%281%29Beauchamp_Falls_Blue_Mountains.jpg?uselang=ko",
+    "https://upload.wikimedia.org/wikipedia/commons/8/8d/%281%29Bare_Island.jpg?uselang=ko",
+    "https://upload.wikimedia.org/wikipedia/commons/f/f6/%281%29Darling_Harbour_concert.jpg?uselang=ko",
+    "https://upload.wikimedia.org/wikipedia/commons/b/b5/%281%29Figtree_House_Hunters_Hill-1.jpg?uselang=ko",
+    "https://upload.wikimedia.org/wikipedia/commons/e/e9/%281%29Sydney_Opera_House.jpg?uselang=ko",
+    "https://upload.wikimedia.org/wikipedia/commons/7/7c/%281%29Vailele_Hunters_Hill.jpg?uselang=ko"
+  ];
 
   const imageScreen = css({
     width: "100%",
@@ -61,22 +31,9 @@ export default function Home() {
     boxSizing: "border-box"
   });
 
-  const textBox = css({
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    margin: "2rem",
-    flexWrap: "wrap"
-  });
-
-  const text = css({
-    fontSize: "4rem",
-    marginBottom: "1rem"
-  });
-
   const imageBox = css({
-    width: "24rem",
-    height: "22rem",
+    width: "34rem",
+    height: "28rem",
     padding: "0.5rem",
     boxSizing: "border-box"
   });
@@ -86,17 +43,13 @@ export default function Home() {
   });
 
   function imageBoxRender() {
-    const { length } = images;
     const rendering = () => {
       const imageBoxList: any[] = [];
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < 1; i++) {
-        if (!images[i]) {
-          break;
-        }
+      for (let i = 0; i < 12; i++) {
         imageBoxList.push(
           <div css={imageBox} key={`box${i}`}>
-            <img css={image} src={images[i]} alt="pho" key={`img${i}`} />
+            <img css={image} src={imageList[i]} alt="pho" key={`img${i}`} />
           </div>
         );
       }
@@ -107,27 +60,7 @@ export default function Home() {
 
   return (
     <div css={imageScreen}>
-      <div css={textBox}>
-        <p css={text}>Server Side Rendering Test - React</p>
-        <input
-          type="file"
-          onChange={setFile}
-          value=""
-          accept="image/png, image/tiff, image/bmp, image/jpg"
-          multiple
-        />
-      </div>
       <div css={imageContainer}>{imageBoxRender()}</div>
-      <div css={textBox}>
-        <button
-          type="button"
-          onClick={() => {
-            setIsFirst(!isFirst);
-          }}
-        >
-          상호작용버튼
-        </button>
-      </div>
     </div>
   );
 }
