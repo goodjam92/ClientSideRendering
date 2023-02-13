@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { ImageList } from "pages/hooks";
 
 export default function Home() {
-  const imageList: string[] = [
+
+/*   const imageList: string[] = [
     "https://upload.wikimedia.org/wikipedia/commons/8/89/Aerial_view_of_National_Museum_of_American_History.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/2/23/%281%29Moonrise_Darling_Harbour.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/8/88/12-07-13-washington-by-RalfR-10.jpg",
@@ -15,7 +17,7 @@ export default function Home() {
     "https://upload.wikimedia.org/wikipedia/commons/b/b5/%281%29Figtree_House_Hunters_Hill-1.jpg?uselang=ko",
     "https://upload.wikimedia.org/wikipedia/commons/e/e9/%281%29Sydney_Opera_House.jpg?uselang=ko",
     "https://upload.wikimedia.org/wikipedia/commons/7/7c/%281%29Vailele_Hunters_Hill.jpg?uselang=ko"
-  ];
+  ]; */
 
   const imageScreen = css({
     width: "100%",
@@ -49,7 +51,7 @@ export default function Home() {
       for (let i = 0; i < 12; i++) {
         imageBoxList.push(
           <div css={imageBox} key={`box${i}`}>
-            <img css={image} src={imageList[i]} alt="pho" key={`img${i}`} />
+            <img css={image} src={ImageList[i]} alt="pho" key={`img${i}`} />
           </div>
         );
       }
